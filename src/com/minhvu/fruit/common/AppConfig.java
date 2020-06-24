@@ -38,4 +38,11 @@ public class AppConfig {
           }
           return url_file;
      }
+
+     public static void logError(Exception e){
+          System.out.println("----------------- ERROR HERE -----------------");
+          System.out.println(e.getMessage());
+          e.printStackTrace();
+          System.out.println("----------------------------------------------");
+     }
 }
