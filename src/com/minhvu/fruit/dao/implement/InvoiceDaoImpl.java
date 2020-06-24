@@ -24,7 +24,12 @@ public class InvoiceDaoImpl implements InvoiceDao {
     @Override
     public void insert(Invoice invoice) throws SQLException {
         entityManager.getTransaction().begin();
-        entityManager.persist(invoice);
+        try {
+            entityManager.persist(invoice);
+        }catch (Exception e){
+            AppConfig.logError(e);
+            entityManager.getTransaction().rollback();
+        }
         entityManager.getTransaction().commit();
         entityManager.clear();
     }

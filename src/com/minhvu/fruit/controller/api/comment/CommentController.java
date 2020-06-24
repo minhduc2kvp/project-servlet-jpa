@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/api/comment")
+@WebServlet("/api/user/comment")
 public class CommentController extends HttpServlet {
     private Gson gson = AppConfig.GSON;
     private CommentService commentService = new CommentServiceImpl();
