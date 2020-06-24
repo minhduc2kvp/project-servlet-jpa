@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+<form action="add-product" method="post">
+    <label>Name : <input type="text" name="name"></label>
+    <label>Description : <input type="text" name="description"></label>
+    <label>Price : <input type="text" name="price"></label>
+    <label>Origin : <input type="text" name="origin"></label>
+    <label>Amount : <input type="date" name="birthday"></label>
+    <label>Avatar : <input type="file" id="image" name="avatar" onchange="myFunction()"></label>
+    <img src="" alt="" id="avatar">
+    <button type="submit">Submit</button>
+</form>
+<script type="text/javascript">
+    function myFunction() {
+        var file = document.getElementById("image").files[0];
+        var img = document.querySelector("#avatar");
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            img.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</body>
+</html>

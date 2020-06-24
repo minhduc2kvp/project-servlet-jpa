@@ -1,0 +1,86 @@
+*{
+    margin : 0;
+    padding : 0;
+}
+
+:root{
+    --main-green-color : #ccff90;
+    --main-yellow-color :  #ffecb3;
+    --font-main : Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    --font-logo : ;
+}
+
+body{
+    min-width: 300px;
+}
+
+header{
+    background-color: var(--main-green-color);
+    font-family: var(--font-main);
+    font-style: 16px;
+    color: black;
+    height: 150px;
+}
+
+header .container{
+    height: 150px;
+    display: flex;
+    padding: 20px 0;
+}
+
+header .container .branch{
+    width: 40%;
+    height: 100%;
+}
+header .container .branch a{
+    display: flex;
+    width: 50%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #64dd17;
+}
+header .container .branch a.logo img{
+    height: 100%;
+    border-radius: 0 80% 0 80%;
+}
+header .container .branch a.logo .name-branch{
+    margin-top: auto;
+}
+header .container .branch a.logo .name-branch .top{
+    margin-left: -40px;
+    margin-bottom: -5px;
+}
+header .container .branch a.logo .name-branch .bot{
+    margin-left: -20px;
+}
+
+header .container .user-control{
+    width: 60%;
+    height: 100%;
+}
+header .container .user-control .menu-user-bar{
+    display: block;
+    float: right;
+    height: 100%;
+    margin-left: auto;
+}
+header .container .user-control .menu-user-bar a{
+    margin-left: 10px;
+}
+header .container .user-control .menu-user-bar a img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+header .container .user-control .menu-user-bar a.logout{
+    background-color: var(--main-yellow-color);
+    text-decoration: none;
+    color: burlywood;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+header .container .user-control .menu-user-bar a.logout:hover{
+    color: rgb(179, 101, 0);
+}

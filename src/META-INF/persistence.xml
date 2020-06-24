@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.minhvu.fruit.model.Address</class>
+        <class>com.minhvu.fruit.model.City</class>
+        <class>com.minhvu.fruit.model.District</class>
+        <class>com.minhvu.fruit.model.User</class>
+        <class>com.minhvu.fruit.model.Ward</class>
+        <class>com.minhvu.fruit.model.Invoice</class>
+<!--        <class>com.minhvu.fruit.test.Item</class>-->
+        <class>com.minhvu.fruit.model.Product</class>
+        <class>com.minhvu.fruit.model.Ward</class>
+        <class>com.minhvu.fruit.model.Category</class>
+        <class>com.minhvu.fruit.model.Comment</class>
+        <class>com.minhvu.fruit.model.Item</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/project_servlet_jpa"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="mduc17062027"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
