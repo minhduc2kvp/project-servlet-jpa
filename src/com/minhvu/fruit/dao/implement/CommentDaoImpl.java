@@ -13,29 +13,60 @@ public class CommentDaoImpl implements CommentDao {
     private EntityManager entityManager = AppConfig.ENTITY_MANAGER;
 
     @Override
-    public void insert(Comment comment) throws SQLException {
+    public Comment insert(Comment comment) throws SQLException {
+        Comment resultComment = null;
         entityManager.getTransaction().begin();
-        entityManager.persist(comment);
+        try{
+            entityManager.persist(comment);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+            return resultComment;
+        }
+        entityManager.flush();
+        resultComment = comment;
         entityManager.getTransaction().commit();
         entityManager.clear();
+        return resultComment;
     }
 
     @Override
-    public void update(Comment comment) throws SQLException {
+    public Comment update(Comment comment) throws SQLException {
+        Comment resultComment = null;
         entityManager.getTransaction().begin();
-        entityManager.merge(comment);
+        try{
+            entityManager.merge(comment);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+            return resultComment;
+        }
+        entityManager.flush();
+        resultComment = comment;
         entityManager.getTransaction().commit();
         entityManager.clear();
+        return resultComment;
     }
 
     @Override
     public void delete(int id) throws SQLException {
-        entityManager.getTransaction().begin();
         Comment comment = getById(id);
-        comment.setDeleted(true);
-        entityManager.merge(comment);
-        entityManager.getTransaction().commit();
-        entityManager.clear();
+        if (comment != null){
+            entityManager.getTransaction().begin();
+            comment.setDeleted(true);
+            try {
+                entityManager.merge(comment);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                entityManager.getTransaction().rollback();
+                entityManager.clear();
+                return;
+            }
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        }
     }
 
     @Override
@@ -43,7 +74,11 @@ public class CommentDaoImpl implements CommentDao {
         Comment comment = null;
         Query query = entityManager.createQuery("select cmt from Comment as cmt where cmt.deleted = false and cmt.id = :id");
         query.setParameter("id",id);
-        comment = (Comment) query.getSingleResult();
+        try {
+            comment = (Comment) query.getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return comment;
     }
@@ -51,7 +86,11 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> getAll() throws SQLException {
         List<Comment> comments = null;
-        comments = entityManager.createQuery("select cmt from Comment as cmt where deleted = false").getResultList();
+        try {
+            comments = entityManager.createQuery("select cmt from Comment as cmt where deleted = false").getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return comments;
     }
@@ -61,7 +100,11 @@ public class CommentDaoImpl implements CommentDao {
         List<Comment> comments = null;
         Query query = entityManager.createQuery("select cmt from Comment as cmt where cmt.deleted = false and cmt.idProduct = :id_product");
         query.setParameter("id_product",id_product);
-        comments = query.getResultList();
+        try{
+            comments = query.getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return comments;
     }

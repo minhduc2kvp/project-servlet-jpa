@@ -1,6 +1,7 @@
 package com.minhvu.fruit.common;
 
 import com.google.gson.Gson;
+import com.minhvu.fruit.common.converter.AddressConverter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -15,6 +16,7 @@ public class AppConfig {
      public static final EntityManager ENTITY_MANAGER =
             Persistence.createEntityManagerFactory("NewPersistenceUnit").createEntityManager();
      public static final Gson GSON = new Gson();
+     public static final AddressConverter ADDRESS_CONVERTER = new AddressConverter();
 
      public static String encodeUTF8(String data){
           String result = null;

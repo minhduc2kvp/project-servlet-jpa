@@ -1,7 +1,7 @@
 package com.minhvu.fruit.controller.api.address;
 
 import com.google.gson.Gson;
-import com.minhvu.fruit.model.AddressJson;
+import com.minhvu.fruit.dto.AddressDTO;
 import com.minhvu.fruit.model.City;
 import com.minhvu.fruit.service.implement.AddressServiceImpl;
 import com.minhvu.fruit.service.interfaces.AddressService;
@@ -22,10 +22,7 @@ public class CityController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<AddressJson> cities = new LinkedList<>();
-        for(City city : addressService.getAllCities()){
-            cities.add(new AddressJson(city.getId(),city.getName()));
-        }
+        List<AddressDTO> cities = addressService.getAllCities();
         String resultJson = gson.toJson(cities);
         resp.getWriter().println(resultJson);
         resp.getWriter().flush();

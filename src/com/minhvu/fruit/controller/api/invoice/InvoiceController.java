@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.minhvu.fruit.common.AppConfig;
+import com.minhvu.fruit.dto.InvoiceDTO;
 import com.minhvu.fruit.model.Address;
 import com.minhvu.fruit.model.Invoice;
 import com.minhvu.fruit.model.Item;
@@ -21,87 +22,88 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@WebServlet("/api/user/invoice")
+@WebServlet("/api/invoice")
 public class InvoiceController extends HttpServlet {
     private InvoiceService invoiceService = new InvoiceServiceImpl();
     private Gson gson = AppConfig.GSON;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idUser = -1;
+        List<InvoiceDTO> invoiceDTOList = new ArrayList<>();
+        Integer id = null;
         try {
-            idUser = Integer.parseInt(req.getParameter("id_user"));
+            id = Integer.parseInt(req.getParameter("id"));
+            invoiceDTOList.add(invoiceService.getById(id));
         }catch (Exception e){
-            System.out.println("Don't exist id user for load invoice");
+            System.out.println(e.getMessage());
         }
-        if (idUser != -1){
-            List<Invoice> invoices = invoiceService.getByUserId(idUser);
-            resp.getWriter().println(toInvoiceJson(invoices));
-            resp.getWriter().flush();
+
+        if (id == null){
+            try {
+                int idUser = Integer.parseInt(req.getParameter("idUser"));
+                invoiceDTOList.addAll(invoiceService.getByUserId(idUser));
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+        if (invoiceDTOList.size() != 0){
+            resp.getWriter().write(gson.toJson(invoiceDTOList));
         }else {
-            List<Invoice> invoices = invoiceService.getAll();
-            resp.getWriter().println(toInvoiceJson(invoices));
-            resp.getWriter().flush();
+            resp.getWriter().write("{\"error\":\"Don't have any result\"}");
         }
+        resp.getWriter().flush();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean check = false;
+        InvoiceDTO result = null;
         try {
-            JsonObject jsonObject = gson.fromJson(req.getReader(), JsonObject.class);
-//            int idUser = (int) req.getSession().getAttribute("id_user");
-            int idUser = jsonObject.get("id_user").getAsInt();
-            String nameUser = AppConfig.encodeUTF8(jsonObject.get("name_user").getAsString());
-            String email = jsonObject.get("email").getAsString();
-            String numberphone = jsonObject.get("numberphone").getAsString();
-            String addressDetail = AppConfig.encodeUTF8(jsonObject.get("address_detail").getAsString());
-            int idWard = jsonObject.get("id_ward").getAsInt();
-            HashMap<Integer, Double> items = new HashMap<>();
-            JsonArray listItem = jsonObject.get("list_item").getAsJsonArray();
-            for(JsonElement jsonElement : listItem){
-                JsonObject jObj = jsonElement.getAsJsonObject();
-                items.put(jObj.get("id_product").getAsInt(), jObj.get("quantity").getAsDouble());
-            }
-            invoiceService.insert(nameUser,email,numberphone,idUser,idWard,addressDetail,items);
-            check = true;
+            InvoiceDTO invoiceDTO = gson.fromJson(req.getReader(), InvoiceDTO.class);
+            result = invoiceService.insert(invoiceDTO);
         }catch (Exception e){
-            AppConfig.logError(e);
+            System.out.println(e.getMessage());
         }
-        if (check){
-            resp.getWriter().println("success");
+        if (result != null){
+            resp.getWriter().write(gson.toJson(result));
         }else {
-            resp.getWriter().println("fail");
+            resp.getWriter().write("{\"error\":\"Didn't insert invoice\"}");
         }
+        resp.getWriter().flush();
     }
 
-    private List<JsonObject> toInvoiceJson(List<Invoice> invoices){
-        List<JsonObject> jsonObjects = new ArrayList<>();
-        for (Invoice invoice : invoices){
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("id", invoice.getId());
-            jsonObject.addProperty("id_user", invoice.getIdUser());
-            jsonObject.addProperty("name_user", invoice.getNameUser());
-            jsonObject.addProperty("email", invoice.getEmail());
-            jsonObject.addProperty("numberphone", invoice.getNumberphone());
-            jsonObject.addProperty("date", invoice.getDate().toLocaleString());
-            Address address = invoice.getAddressByIdAddress();
-            String addressDetail = address.getDetailAddress() + ", " + address.getWardByIdWard().getName() + ", " + address.getWardByIdWard().getDistrictByIdDistrict().getName() + ", " + address.getWardByIdWard().getDistrictByIdDistrict().getCityByIdCity().getName();
-            jsonObject.addProperty("address", addressDetail);
-            JsonArray jsonElements = new JsonArray();
-            List<Item> itemList = (List<Item>) invoice.getItemsById();
-            for (Item item : itemList){
-                JsonObject jObj = new JsonObject();
-                jObj.addProperty("id_product", item.getIdProduct());
-                jObj.addProperty("name_product", item.getProduct().getName());
-                jObj.addProperty("avatar_product", item.getProduct().getImage1());
-                jObj.addProperty("quantity", item.getQuantity());
-                jObj.addProperty("product_price", item.getIdProduct());
-                jsonElements.add(jObj);
-            }
-            jsonObject.addProperty("list_item", gson.toJson(jsonElements));
-            jsonObjects.add(jsonObject);
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        InvoiceDTO result = null;
+        try {
+            InvoiceDTO invoiceDTO = gson.fromJson(req.getReader(), InvoiceDTO.class);
+            result = invoiceService.update(invoiceDTO);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        return jsonObjects;
+        if (result != null){
+            resp.getWriter().write(gson.toJson(result));
+        }else {
+            resp.getWriter().write("{\"error\":\"Didn't update invoice\"}");
+        }
+        resp.getWriter().flush();
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        boolean check = false;
+        try{
+            int id = Integer.parseInt(req.getParameter("id"));
+            invoiceService.delete(id);
+            check = true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        if(check){
+            resp.getWriter().write("{\"report\" : \"success\"}");
+        }else {
+            resp.getWriter().write("{\"report\" : \"faild\"}");
+        }
     }
 }

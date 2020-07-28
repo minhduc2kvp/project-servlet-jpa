@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Fresh Fruit</title>
+  </head>
+  <body>
+    <header class="bg-warning">
+      <nav
+        class="navbar navbar-expand-sm container navbar-light sticky-top"
+        style="max-height: 100px;"
+      >
+        <a href="#" class="navbar-brand">
+          <img
+            src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+            class="rounded-lg"
+            alt="logo"
+            height="80"
+          />
+        </a>
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Giỏ hàng</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="#">
+              <img
+                src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                ,
+                class="rounded-circle border-1 border border-success"
+                alt="logo"
+                width="50"
+                height="50"
+              />
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-primary name-user" href="#">Minh Đức</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white btn btn-danger"
+              style="font-weight: bold;"
+              href="#"
+              >Đăng xuất</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white btn btn-success"
+              style="font-weight: bold;"
+              href="#"
+              >Đăng nhập</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="search-bar bg-info pt-3 pb-1">
+      <form class="form-inline container" action="">
+        <input
+          class="form-control mr-sm-2 ml-auto"
+          type="text"
+          placeholder="Tên sản phẩm"
+        />
+        <button class="btn btn-warning" type="submit">Tìm kiếm</button>
+      </form>
+
+      <ul class="container col-md-4 text-center" id="search-item">
+        <!-- <div class="spinner-border text-warning"></div> -->
+        <!-- <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li>
+        <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li>
+        <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li> -->
+      </ul>
+    </div>
+
+    <main>
+      <h1 class="text-dark text-center" style="padding: 10px 0;">
+        Giỏ hàng của bạn
+      </h1>
+      <hr>
+      <div class="container p-4">
+        <div class="row">
+          <div class="col-md-6">
+            <form action="" class="p-4 border">
+              <div class="form-group">
+                <label for="name">Họ và Tên :</label>
+                <input type=text class="form-control" placeholder="Nhập tên của bạn" id="name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" class="form-control" placeholder="Nhập email của bạn" id="email">
+              </div>
+              <div class="form-group">
+                <label for="numberphone">Số điện thoại :</label>
+                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" id="numberphone">
+              </div>
+              <div class="form-group">
+                <h5>Địa chỉ :</h5>
+                <label for="address" class="text-muted">Tỉnh - Thành phố :</label>
+                <select class="form-control" id="address">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+                <label for="address" class="text-muted">Quận - Huyện :</label>
+                <select class="form-control" id="address">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+                <label for="address" class="text-muted">Xã - Phường :</label>
+                <select class="form-control" id="address">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+                <label for="address_detail" class="text-muted">Chi tiết :</label>
+                <input type="text" class="form-control" placeholder="Địa chỉ chi tiết" id="address_detail">
+              </div> 
+            </form>
+          </div>
+          <div class="col-md-6">
+            <h3 class="text-center">Danh sách sản phẩm</h3>
+            <hr>
+            <ul class="list-item d-block" style="list-style : none;">
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+              <li class="item p-2 mb-2 border-bottom bg-light d-flex align-items-center justify-content-between">
+                <a href="" style="height: 50px;" class="d-block">
+                  <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="" class="rounded-lg h-100">
+                </a>
+                <a href="" class="text-decoration-none text-success">
+                  <span>Cam Cà Mau</span>
+                </a>
+                <div class="badge badge-warning">
+                  <button class="btn btn-warning">-</button>
+                  <input type="text" class="text-center p-1" value="1" style="width: 50px;">
+                  <button class="btn btn-warning">+</button>
+                </div>
+                <span class="badge badge-success">100,000 đ</span>
+              </li>
+            </ul>
+            <div>
+              <hr>
+              <div class="text-dark float-right">Tổng tiền : <strong>1,000,000 đ</strong></div>
+              <br>
+              <button class="btn btn-primary float-right mt-3">Tiến hành đặt hàng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-warning text-center" style="padding: 30px 0;">
+      <h4 class="title text-light text-uppercase">Project Servlet and JPA</h4>
+    </footer>
+  </body>
+</html>

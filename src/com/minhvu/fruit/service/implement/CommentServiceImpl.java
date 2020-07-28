@@ -1,46 +1,50 @@
 package com.minhvu.fruit.service.implement;
 
+import com.minhvu.fruit.common.converter.CommentConverter;
 import com.minhvu.fruit.dao.implement.CommentDaoImpl;
 import com.minhvu.fruit.dao.implement.ProductDaoImpl;
 import com.minhvu.fruit.dao.implement.UserDaoImpl;
 import com.minhvu.fruit.dao.interfaces.CommentDao;
 import com.minhvu.fruit.dao.interfaces.ProductDao;
 import com.minhvu.fruit.dao.interfaces.UserDao;
+import com.minhvu.fruit.dto.CommentDTO;
 import com.minhvu.fruit.model.Comment;
-import com.minhvu.fruit.model.Product;
-import com.minhvu.fruit.model.User;
 import com.minhvu.fruit.service.interfaces.CommentService;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
     private UserDao userDao = new UserDaoImpl();
     private ProductDao productDao = new ProductDaoImpl();
+    private CommentConverter commentConverter = new CommentConverter();
 
     @Override
-    public boolean insert(int id_product, int id_user, String comment) {
-        boolean check = false;
+    public CommentDTO insert(CommentDTO commentDTO) {
+        CommentDTO result = null;
         try {
-            Product product = productDao.getById(id_product);
-            User user = userDao.getById(id_user);
-            Comment cmt = new Comment(comment,user,product);
-            cmt.setCreateTime(new Timestamp(System.currentTimeMillis()));
-            commentDao.insert(cmt);
-            check = true;
+            Comment comment = commentConverter.toEntity(commentDTO);
+            comment.setUserByIdUser(userDao.getById(commentDTO.getIdUser()));
+            comment.setProductByIdProduct(productDao.getById(comment.getIdProduct()));
+            comment.setCreateTime(new Timestamp(System.currentTimeMillis()));
+            result = commentConverter.toDTO(commentDao.insert(comment));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
-    public List<Comment> getByProductId(int id_product) {
-        List<Comment> comments = null;
+    public List<CommentDTO> getByProductId(int id_product) {
+        List<CommentDTO> comments = new ArrayList<>();
         try {
-            comments = commentDao.getByProductId(id_product);
+            List<Comment> commentList = commentDao.getByProductId(id_product);
+            for (Comment comment : commentList){
+                comments.add(commentConverter.toDTO(comment));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -48,15 +52,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean update(Comment comment) {
-        boolean check = false;
+    public CommentDTO update(CommentDTO commentDTO) {
+        CommentDTO result = null;
         try {
-            commentDao.update(comment);
-            check = true;
+            Comment comment = commentDao.getById(commentDTO.getId());
+            comment.setComment(commentDTO.getComment());
+            result = commentConverter.toDTO(commentDao.update(comment));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
@@ -72,21 +77,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getById(int id) {
-        Comment comment = null;
+    public CommentDTO getById(int id) {
+        CommentDTO result = null;
         try {
-            comment = commentDao.getById(id);
+            result = commentConverter.toDTO(commentDao.getById(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return comment;
+        return result;
     }
 
     @Override
-    public List<Comment> getAll() {
-        List<Comment> comments = null;
+    public List<CommentDTO> getAll() {
+        List<CommentDTO> comments = new ArrayList<>();
         try {
-            comments = commentDao.getAll();
+            List<Comment> commentList = commentDao.getAll();
+            for (Comment comment : commentList){
+                comments.add(commentConverter.toDTO(comment));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
