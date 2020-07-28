@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,8 +23,13 @@ public class WardController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id_district = Integer.parseInt(req.getParameter("id"));
-        List<AddressDTO> wards = addressService.getAllWardsInDistrict(id_district);
+        List<AddressDTO> wards = new ArrayList<>();
+        try {
+            int id_district = Integer.parseInt(req.getParameter("idDistrict"));
+            wards = addressService.getAllWardsInDistrict(id_district);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         String resultJson = gson.toJson(wards);
         resp.getWriter().println(resultJson);
         resp.getWriter().flush();
