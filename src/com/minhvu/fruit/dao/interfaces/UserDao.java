@@ -6,5 +6,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDao extends BaseDao<User>{
-    public List<User> getAllUsersIsActive() throws SQLException;
+    List<User> getAllUsersIsActive() throws SQLException;
 }

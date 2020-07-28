@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/home.css" />
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -15,42 +18,244 @@
     <title>Fresh Fruit</title>
   </head>
   <body>
-    <header>
-        <div class="container">
-            <div class="search-bar"><input type="text"><button></button></div>
-            <div class="branch">
-                <a href="" class="logo">
-                    <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" alt="">
-                    <div class="name-branch">
-                        <div class="top">Fresh</div>
-                        <div class="bot">Fruit</div>
-                    </div>
-                </a>
-            </div>
-            <div class="user-control">
-                <!-- <div class="menu-sign">
-                    <a href="" class="login">Đăng nhập</a>
-                    <a href="" class="register">Đăng ký</a>
-                </div> -->
-                <div class="menu-user-bar">
-                    <a href="" class="avatar"><img src="./image/2a0d1e82-cd14-4fed-956d-a941d445f78a.jpg" alt=""></a>
-                    <a href="" class="name-user">Minh Đức</a>
-                    <a href="" class="logout">Đăng xuất</a>
-                </div>
-            </div>
-        </div>
+    <header class="bg-warning">
+      <nav
+        class="navbar navbar-expand-sm container navbar-light sticky-top"
+        style="max-height: 100px;"
+      >
+        <a href="#" class="navbar-brand">
+          <img
+            src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+            class="rounded-lg"
+            alt="logo"
+            height="80"
+          />
+        </a>
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Giỏ hàng</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="#">
+              <img
+                src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                ,
+                class="rounded-circle border-1 border border-success"
+                alt="logo"
+                width="50"
+                height="50"
+              />
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-primary name-user" href="#">Minh Đức</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white btn btn-danger"
+              style="font-weight: bold;"
+              href="#"
+              >Đăng xuất</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white btn btn-success"
+              style="font-weight: bold;"
+              href="#"
+              >Đăng nhập</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <menu>
+    <div class="search-bar bg-info pt-3 pb-1">
+      <form class="form-inline container" action="">
+        <input
+          class="form-control mr-sm-2 ml-auto"
+          type="text"
+          placeholder="Tên sản phẩm"
+        />
+        <button class="btn btn-warning" type="submit">Tìm kiếm</button>
+      </form>
 
-    </menu>
+      <ul
+        class="container col-md-4 text-center"
+        id="search-item"
+      >
+        <!-- <div class="spinner-border text-warning"></div> -->
+        <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li>
+        <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li>
+        <li class="item w-100 border border-danger mb-2 bg-light" style="list-style: none;">
+          <a href="#" class="w-100 d-block text-decoration-none">
+            <img src="./image/2327359f98fd97aa3c11519ff4af7732.png" class="w-25" alt="">
+            <span class="badge badge-success">Cam Cà Mau</span>
+            <span class="badge badge-warning">100,000 đ</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <main>
-
+      <h1 class="text-dark text-center" style="padding: 10px 0;">Gian hàng</h1>
+      <div class="controller-bar bg-primary">
+        <div class="container d-flex" style="padding: 10px 0;">
+          <div class="form-group text-white col-md-3">
+            <label for="list-category">Select category:</label>
+            <select class="form-control" id="list-category">
+              <option>Tất cả</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+<!--          <div class="form-group text-white col-md-3">-->
+<!--            <label for="list-category">Filter:</label>-->
+<!--            <select class="form-control" id="list-category">-->
+<!--              <option>Tất cả</option>-->
+<!--              <option>2</option>-->
+<!--              <option>3</option>-->
+<!--              <option>4</option>-->
+<!--            </select>-->
+<!--          </div>-->
+        </div>
+      </div>
+      <div class="container">
+        <ul class="list-item row" style="list-style: none; padding: 20px 0;">
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+          <li class="item col-md-3 mb-3">
+            <div class="card w-100">
+              <a href="#" class="card-link">
+                <img
+                  class="card-img-top"
+                  src="./image/2327359f98fd97aa3c11519ff4af7732.png"
+                  alt="fruit image"
+                />
+              </a>
+              <div class="card-body text-center">
+                <h4 class="card-title">Cam Đà Nẵng</h4>
+                <p class="card-text">
+                  <span class="badge badge-warning">Sale 50%</span> 100,000 đ
+                </p>
+                <a href="#" class="btn btn-success">Thêm vào giỏ hàng</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </main>
 
-    <footer>
-
+    <footer class="bg-warning text-center" style="padding: 30px 0;">
+      <h4 class="title text-light text-uppercase">Project Servlet and JPA</h4>
     </footer>
   </body>
 </html>

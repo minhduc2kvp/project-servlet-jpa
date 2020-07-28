@@ -1,40 +1,43 @@
 package com.minhvu.fruit.service.implement;
 
+import com.minhvu.fruit.common.converter.CategoryConverter;
 import com.minhvu.fruit.dao.implement.CategoryDaoImpl;
 import com.minhvu.fruit.dao.interfaces.CategoryDao;
+import com.minhvu.fruit.dto.CategoryDTO;
 import com.minhvu.fruit.model.Category;
 import com.minhvu.fruit.service.interfaces.CategoryService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao = new CategoryDaoImpl();
+    private CategoryConverter categoryConverter = new CategoryConverter();
 
     @Override
-    public boolean insert(String name) {
-        boolean check = false;
+    public CategoryDTO insert(CategoryDTO categoryDTO) {
+        CategoryDTO result = null;
         try {
-            Category category = new Category();
-            category.setName(name);
-            categoryDao.insert(category);
-            check = true;
+            Category category = categoryConverter.toEntity(categoryDTO);
+            result = categoryConverter.toDTO(categoryDao.insert(category));
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
-    public boolean update(Category category) {
-        boolean check = false;
+    public CategoryDTO update(CategoryDTO categoryDTO) {
+        CategoryDTO result = null;
         try {
-            categoryDao.update(category);
-            check = true;
+            Category category = categoryConverter.toEntity(categoryDTO);
+            category.setId(categoryDTO.getId());
+            result = categoryConverter.toDTO(categoryDao.update(category));
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
@@ -50,21 +53,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getById(int id) {
-        Category category = null;
+    public CategoryDTO getById(int id) {
+        CategoryDTO result = null;
         try {
-            category = categoryDao.getById(id);
+            result = categoryConverter.toDTO(categoryDao.getById(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return category;
+        return result;
     }
 
     @Override
-    public List<Category> getAll() {
-        List<Category> categories = null;
+    public List<CategoryDTO> getAll() {
+        List<CategoryDTO> categories = new ArrayList<>();
         try{
-            categories = categoryDao.getAll();
+            List<Category> categoryList = categoryDao.getAll();
+            for (Category category : categoryList){
+                categories.add(categoryConverter.toDTO(category));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -7,6 +7,7 @@ import com.minhvu.fruit.model.District;
 import com.minhvu.fruit.model.Ward;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddressDaoImpl implements AddressDao {
@@ -14,32 +15,52 @@ public class AddressDaoImpl implements AddressDao {
 
     @Override
     public List<City> getAllCities() {
-        List<City> cities = entityManager.createQuery("from City ").getResultList();
+        List<City> cities = new ArrayList<>();
+        try{
+            cities = entityManager.createQuery("from City ").getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return cities;
     }
 
     @Override
     public List<District> getAllDistrictsInCity(int id_city) {
-        List<District> districts = entityManager.createQuery("select dt from District as dt where dt.idCity = :id")
-                .setParameter("id",id_city)
-                .getResultList();
+        List<District> districts = new ArrayList<>();
+        try{
+            districts = entityManager.createQuery("select dt from District as dt where dt.idCity = :id")
+                    .setParameter("id",id_city)
+                    .getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return districts;
     }
 
     @Override
     public List<Ward> getAllWardsInDistrict(int id_district) {
-        List<Ward> wards = entityManager.createQuery("select wr from Ward as wr where wr.idDistrict = :id")
-                .setParameter("id",id_district)
-                .getResultList();
+        List<Ward> wards = new ArrayList<>();
+        try{
+            wards = entityManager.createQuery("select wr from Ward as wr where wr.idDistrict = :id")
+                    .setParameter("id",id_district)
+                    .getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return wards;
     }
 
     @Override
     public Ward getWardById(int id_ward) {
-        Ward ward = entityManager.find(Ward.class,id_ward);
+        Ward ward = null;
+        try{
+            ward = entityManager.find(Ward.class,id_ward);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         entityManager.clear();
         return ward;
     }

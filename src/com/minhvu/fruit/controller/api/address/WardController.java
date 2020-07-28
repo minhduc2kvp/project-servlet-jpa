@@ -1,8 +1,8 @@
 package com.minhvu.fruit.controller.api.address;
 
 import com.google.gson.Gson;
-import com.minhvu.fruit.model.AddressJson;
-import com.minhvu.fruit.model.Ward;
+import com.minhvu.fruit.common.AppConfig;
+import com.minhvu.fruit.dto.AddressDTO;
 import com.minhvu.fruit.service.implement.AddressServiceImpl;
 import com.minhvu.fruit.service.interfaces.AddressService;
 
@@ -18,15 +18,12 @@ import java.util.List;
 @WebServlet("/api/address/ward")
 public class WardController extends HttpServlet {
     private AddressService addressService = new AddressServiceImpl();
-    private Gson gson = new Gson();
+    private Gson gson = AppConfig.GSON;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id_district = Integer.parseInt(req.getParameter("id"));
-        List<AddressJson> wards = new LinkedList<>();
-        for(Ward ward : addressService.getAllWardsInDistrict(id_district)){
-            wards.add(new AddressJson(ward.getId(),ward.getName()));
-        }
+        List<AddressDTO> wards = addressService.getAllWardsInDistrict(id_district);
         String resultJson = gson.toJson(wards);
         resp.getWriter().println(resultJson);
         resp.getWriter().flush();

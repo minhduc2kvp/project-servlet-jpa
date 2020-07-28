@@ -1,42 +1,48 @@
 package com.minhvu.fruit.service.implement;
 
-import com.minhvu.fruit.common.AppConfig;
+import com.minhvu.fruit.common.converter.ProductConverter;
 import com.minhvu.fruit.dao.implement.CategoryDaoImpl;
 import com.minhvu.fruit.dao.implement.ProductDaoImpl;
 import com.minhvu.fruit.dao.interfaces.CategoryDao;
 import com.minhvu.fruit.dao.interfaces.ProductDao;
+import com.minhvu.fruit.dto.ProductDTO;
 import com.minhvu.fruit.model.Product;
 import com.minhvu.fruit.service.interfaces.ProductService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
     private ProductDao productDao = new ProductDaoImpl();
     private CategoryDao categoryDao = new CategoryDaoImpl();
+    private ProductConverter productConverter = new ProductConverter();
 
 
     @Override
-    public boolean insert(String name, String description, double price, String origin, double amount, List<String> images, int id_category) {
-        boolean check = false;
+    public ProductDTO insert(ProductDTO productDTO) {
+        ProductDTO result = null;
         try {
-            Product product = new Product(name,description,BigDecimal.valueOf(price),origin,amount, AppConfig.uploadFileImage(images.get(0)),AppConfig.uploadFileImage(images.get(1)),AppConfig.uploadFileImage(images.get(2)),categoryDao.getById(id_category));
+            Product product = productConverter.toEntity(productDTO);
             product.setCreateDate(new Timestamp(System.currentTimeMillis()));
-            productDao.insert(product);
-            check = true;
+            product.setCategoryByIdCategory(categoryDao.getById(productDTO.getIdCategory()));
+            result = productConverter.toDTO(productDao.insert(product));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
-    public List<Product> getByCategory(int idCategory) {
-        List<Product> products = null;
+    public List<ProductDTO> getByCategory(int idCategory) {
+        List<ProductDTO> products = new ArrayList<>();
         try {
-            products = productDao.getByCategory(idCategory);
+            List<Product> productList = productDao.getByCategory(idCategory);
+            for (Product product : productList){
+                products.add(productConverter.toDTO(product));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -44,15 +50,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean update(Product product) {
-        boolean check = false;
-        try{
-            productDao.update(product);
-            check = true;
+    public ProductDTO update(ProductDTO productDTO) {
+        ProductDTO result = null;
+        try {
+            Product product = productDao.getById(productDTO.getId());
+            product.setName(productDTO.getName());
+            product.setDescription(productDTO.getDescription());
+            product.setPrice(BigDecimal.valueOf(productDTO.getPrice()));
+            product.setOrigin(productDTO.getOrigin());
+            product.setSale(productDTO.getSale());
+            product.setAmount(productDTO.getAmount());
+            product.setImage1(productDTO.getImage1());
+            product.setImage2(productDTO.getImage2());
+            product.setImage3(productDTO.getImage3());
+            result = productConverter.toDTO(productDao.update(product));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return check;
+        return result;
     }
 
     @Override
@@ -68,21 +83,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(int id) {
-        Product product = null;
+    public ProductDTO getById(int id) {
+        ProductDTO result = null;
         try {
-            product = productDao.getById(id);
+            result = productConverter.toDTO(productDao.getById(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return product;
+        return result;
     }
 
     @Override
-    public List<Product> getAll() {
-        List<Product> products = null;
+    public List<ProductDTO> getAll() {
+        List<ProductDTO> products = new ArrayList<>();
         try {
-            products = productDao.getAll();
+            List<Product> productList = productDao.getAll();
+            for (Product product : productList){
+                products.add(productConverter.toDTO(product));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
